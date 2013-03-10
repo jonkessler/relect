@@ -1,4 +1,6 @@
 Relect::Application.routes.draw do
+  devise_for :users
+
   resources :elections do
     resources :races do
       member do

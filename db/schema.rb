@@ -13,12 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20130310080643) do
 
-  create_table "ballots", :force => true do |t|
-    t.integer  "election_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "candidates", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -68,7 +62,6 @@ ActiveRecord::Schema.define(:version => 20130310080643) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "votes", :force => true do |t|
-    t.integer  "ballot_id"
     t.integer  "race_id"
     t.integer  "candidate_id"
     t.integer  "rank"
