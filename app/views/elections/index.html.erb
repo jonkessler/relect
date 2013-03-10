@@ -16,6 +16,7 @@
       <% election.races.each do |race| %>
         <%= link_to race.position, election_race_path(election, race) %><br/>
       <% end -%>
+      <%= link_to 'Add Race', new_election_race_path(election) %>
     </td>
     <td><%= link_to 'Show', election %></td>
     <td><%= link_to 'Edit', edit_election_path(election) %></td>
