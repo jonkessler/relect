@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ballot_id: 1
+  race_id: 1
+  candidate_id: 1
+  rank: 1
+
+two:
+  ballot_id: 1
+  race_id: 1
+  candidate_id: 1
+  rank: 1

@@ -1,5 +1,12 @@
 Relect::Application.routes.draw do
-  resources :elections
+  resources :elections do
+    resources :races
+    resources :ballots
+  end
+  
+  resources :candidates
+  
+  resources :users
 
 
   # The priority is based upon order of creation:
