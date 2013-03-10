@@ -28,6 +28,7 @@ class RacesController < ApplicationController
   def new
     @election = Election.find(params[:election_id])
     @race = @election.races.build
+    @race.race_candidates.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -85,27 +86,6 @@ class RacesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to election_races_url(@election) }
       format.json { head :no_content }
-    end
-  end
-
-  def vote
-    @election = Election.find(params[:election_id])
-    @race = @election.races.find(params[:id])
-  end
-
-  def cast_vote
-    @election = Election.find(params[:election_id])
-    @race = @election.races.find(params[:id])
-
-    respond_to do |format|
-      @race.votes_attributes = params[:race][:votes_attributes]
-      if @race.save
-        format.html { redirect_to election_path(@election), notice: "Your vote has been cast for: #{@race.position}" }
-        format.json { head :no_content }
-      else
-        format.html { render action: "vote" }
-        format.json { render json: @race.errors, status: :unprocessable_entity }
-      end
     end
   end
 end

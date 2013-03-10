@@ -1,11 +1,9 @@
 class Vote < ActiveRecord::Base
-  attr_accessible :candidate_id, :race_id, :rank
+  attr_accessible :candidate, :race, :rank, :user_id, :candidate_id
   
   belongs_to :race
   belongs_to :candidate
+  belongs_to :user
   
-  validates_presence_of :race, :candidate, :rank
-  #validates_uniqueness_of :rank, :scope => [:candidate_id, :race_id]
-  #validates_uniqueness_of :candidate_id, :scope => [:race_id, :rank]
-  #validates_numericality_of :rank, :greater_than => 0, :less_than => lambda {|vote| vote.race.candidates.size}
+  validates_presence_of :race, :candidate, :rank, :user
 end

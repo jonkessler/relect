@@ -1,0 +1,25 @@
+<%= form_for @election, :url => cast_votes_election_path(@election), :html => { :class => 'form-horizontal' } do |f| %>
+  <%= render :partial => 'shared/error_messages', :locals => { :model => @election } %>
+  <%= f.fields_for :races do |race_form| %>
+    <h2><%= race_form.object.position %></h2>
+    <% (1..3).each do |i| %>
+      <%= race_form.fields_for 'votes_attributes[]', Vote.new do |vote| %>
+        <%= vote.hidden_field :rank, :value => i %>
+        <%= vote.hidden_field :user_id, :value => current_user.id %>
+        <div class="control-group">
+          <%= vote.label :candidate_id, "#{i.ordinalize} Choice Candidate", :class => 'control-label' %>
+          <div class="controls">
+            <%= vote.select :candidate_id, race_form.object.candidates.order(:name).map{|candidate| [candidate.name, candidate.id]}, :include_blank => true %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.submit 'Cast Vote', :class => 'btn btn-primary',
+                              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                elections_path, :class => 'btn' %>
+  </div>
+<% end %>

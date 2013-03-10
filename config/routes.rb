@@ -2,11 +2,12 @@ Relect::Application.routes.draw do
   devise_for :users
 
   resources :elections do
-    resources :races do
-      member do
-        get :vote
-        post :cast_vote
-      end
+    resources :races
+
+    member do
+      get :vote
+      put :cast_votes
+      get :results
     end
   end
   

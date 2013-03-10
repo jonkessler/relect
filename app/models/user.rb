@@ -7,4 +7,10 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  has_many :votes
+
+  def has_voted_in_election?(election)
+    votes.map(&:race).map(&:election).include?(election)
+  end
 end

@@ -63,7 +63,7 @@ class ElectionsController < ApplicationController
         format.html { redirect_to @election, notice: 'Election was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: :edit }
         format.json { render json: @election.errors, status: :unprocessable_entity }
       end
     end
@@ -79,5 +79,37 @@ class ElectionsController < ApplicationController
       format.html { redirect_to elections_url }
       format.json { head :no_content }
     end
+  end
+
+  def vote
+    @election = Election.find(params[:id])
+    if current_user.has_voted_in_election?(@election)
+      flash[:error] = "Sorry, you have already voted in this election"
+      redirect_to root_path
+    end
+  end
+
+  def cast_votes
+    @election = Election.find(params[:id])
+
+    if current_user.has_voted_in_election?(@election)
+      flash[:error] = "Sorry, you have already voted in this election"
+      redirect_to root_path
+    end
+
+    respond_to do |format|
+      if @election.update_attributes(params[:election])
+        format.html { redirect_to elections_path, notice: "Your vote has been cast for election: #{@election.name}" }
+        format.json { head :no_content }
+      else
+        format.html { render action: :vote }
+        format.json { render json: @race.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def results
+    @election = Election.find(params[:id])
+    @results = @election.results
   end
 end

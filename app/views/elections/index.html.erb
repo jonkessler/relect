@@ -21,6 +21,10 @@
             <%= link_to 'Add Race', new_election_race_path(election) %>
         </td>
         <td>
+          <%= link_to 'VOTE',
+                      vote_election_path(election), :class => 'btn btn-mini btn-primary' %>
+          <%= link_to 'Results',
+                      results_election_path(election), :class => 'btn btn-mini btn-success' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_election_path(election), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

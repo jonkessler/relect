@@ -1,13 +1,21 @@
 <%- model_class = Race -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%= @race.position %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:position) %>:</strong></dt>
-  <dd><%= @race.position %></dd>
   <dt><strong><%= model_class.human_attribute_name(:election_id) %>:</strong></dt>
   <dd><%= @race.election.name %></dd>
+  <dt><strong>Candidates</strong></dt>
+  <dd>
+    <% if (candidates = @race.candidates.order(:name)).present?  %>
+      <% candidates.each do |candidate| %>
+        <p><%= candidate.name %></p>
+      <% end -%>
+    <% else %>
+      <p>None</p>
+    <% end -%>
+  </dd>
 </dl>
 
 <div class="form-actions">

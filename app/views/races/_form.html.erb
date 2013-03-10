@@ -1,10 +1,23 @@
-<%= form_for [@election, @race], :html => { :class => 'form-horizontal' } do |f| %>
+<%= nested_form_for [@election, @race], :html => { :class => 'form-horizontal' } do |f| %>
+  <%= render :partial => 'shared/error_messages', :locals => { :model => @race } %>
   <div class="control-group">
     <%= f.label :position, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :position, :class => 'text_field' %>
     </div>
   </div>
+  <%= f.fields_for :race_candidates do |rc| %>
+    <div class="control-group">
+      <%= rc.hidden_field :race_id, :value => @race.id %>
+      <%= rc.label :candidate_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= rc.select :candidate_id, Candidate.all.map{|c| [c.name, c.id] }, :include_blank => true %>
+        <%= rc.link_to_remove "Remove Candidate", :class => 'btn btn-danger' %>
+      </div>
+    </div>
+  <% end -%>
+  <%= f.link_to_add "Add Candidate", :race_candidates, :class => 'btn' %>
+
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
