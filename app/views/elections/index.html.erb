@@ -7,7 +7,6 @@
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th>Races</th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -21,7 +20,6 @@
             <% end -%>
             <%= link_to 'Add Race', new_election_race_path(election) %>
         </td>
-        <td><%=l election.created_at %></td>
         <td>
           <%= link_to 'Cast Ballot',
                       new_election_ballot_path(election),

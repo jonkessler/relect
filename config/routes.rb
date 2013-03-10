@@ -1,7 +1,11 @@
 Relect::Application.routes.draw do
   resources :elections do
-    resources :races
-    resources :ballots, :except => [:index, :destroy]
+    resources :races do
+      member do
+        get :vote
+        post :cast_vote
+      end
+    end
   end
   
   resources :candidates
