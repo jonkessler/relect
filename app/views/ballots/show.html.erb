@@ -1,5 +1,14 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Ballot -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
+<dl class="dl-horizontal">
+  <dt><strong><%= Election %>:</strong></dt>
+  <dd><%= @election.name %></dd>
+</dl>
 
-<%= link_to 'Edit', edit_ballot_path(@ballot) %> |
-<%= link_to 'Back', ballots_path %>
+<div class="form-actions">
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_election_ballot_path(@election, @ballot), :class => 'btn' %>
+</div>

@@ -1,23 +1,14 @@
-<h1>Election: <%= @election.name %></h1>
-
-<%= form_for([@election, @race]) do |f| %>
-  <% if @race.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@race.errors.count, "error") %> prohibited this race from being saved:</h2>
-
-      <ul>
-      <% @race.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for [@election, @race], :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :position, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :position, :class => 'text_field' %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :position %><br />
-    <%= f.text_field :position %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                election_path(@election), :class => 'btn' %>
   </div>
 <% end %>
