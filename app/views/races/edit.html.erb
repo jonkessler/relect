@@ -1,6 +1,6 @@
-<h1>Editing race</h1>
+<h1>Editing race for election <%= @election.name %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @race %> |
-<%= link_to 'Back', races_path %>
+<%= link_to 'Show', [@election, @race] %> |
+<%= link_to 'Back', election_races_path(@election) %>

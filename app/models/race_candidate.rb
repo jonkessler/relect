@@ -1,6 +1,6 @@
-class RaceCandidate < ActiveRecord::Base
-  attr_accessible :candidate_id, :race_id
-  
+class RaceCandidate < ActiveRecord::Base  
   belongs_to :race
   belongs_to :candidate
+  
+  validates_presence_of :race, :candidate
 end

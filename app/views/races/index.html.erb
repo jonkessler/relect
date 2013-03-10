@@ -1,4 +1,4 @@
-<h1>Listing races</h1>
+<h1>Listing races for election <%= @election.name %></h1>
 
 <table>
   <tr>
@@ -20,4 +20,4 @@
 
 <br />
 
-<%= link_to 'New Race', new_race_path %>
+<%= link_to 'New Race', new_election_race_path(@election) %>

@@ -1,4 +1,6 @@
-<%= form_for(@race) do |f| %>
+<h1>Election: <%= @election.name %></h1>
+
+<%= form_for([@election, @race]) do |f| %>
   <% if @race.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@race.errors.count, "error") %> prohibited this race from being saved:</h2>

@@ -1,8 +1,9 @@
 class RacesController < ApplicationController
-  # GET /races
-  # GET /races.json
+  # GET /elections/:election_id/races
+  # GET /elections/:election_id/races.json
   def index
-    @races = Race.all
+    @election = Election.find(params[:election_id])
+    @races = @election.races
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,10 +11,11 @@ class RacesController < ApplicationController
     end
   end
 
-  # GET /races/1
-  # GET /races/1.json
+  # GET /elections/:election_id/races/1
+  # GET /elections/:election_id/races/1.json
   def show
-    @race = Race.find(params[:id])
+    @election = Election.find(params[:election_id])
+    @race = @election.races.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,10 +23,11 @@ class RacesController < ApplicationController
     end
   end
 
-  # GET /races/new
-  # GET /races/new.json
+  # GET /elections/:election_id/races/new
+  # GET /elections/:election_id/races/new.json
   def new
-    @race = Race.new
+    @election = Election.find(params[:election_id])
+    @race = @election.races.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,20 +35,22 @@ class RacesController < ApplicationController
     end
   end
 
-  # GET /races/1/edit
+  # GET /elections/:election_id/races/1/edit
   def edit
-    @race = Race.find(params[:id])
+    @election = Election.find(params[:election_id])
+    @race = @election.races.find(params[:id])
   end
 
-  # POST /races
-  # POST /races.json
+  # POST /elections/:election_id/races
+  # POST /elections/:election_id/races.json
   def create
-    @race = Race.new(params[:race])
+    @election = Election.find(params[:election_id])
+    @race = @election.races.build(params[:race])
 
     respond_to do |format|
       if @race.save
-        format.html { redirect_to @race, notice: 'Race was successfully created.' }
-        format.json { render json: @race, status: :created, location: @race }
+        format.html { redirect_to [@election, @race], notice: 'Race was successfully created.' }
+        format.json { render json: @race, status: :created, location: [@election, @race] }
       else
         format.html { render action: "new" }
         format.json { render json: @race.errors, status: :unprocessable_entity }
@@ -53,14 +58,15 @@ class RacesController < ApplicationController
     end
   end
 
-  # PUT /races/1
-  # PUT /races/1.json
+  # PUT /elections/:election_id/races/1
+  # PUT /elections/:election_id/races/1.json
   def update
+    @election = Election.find(params[:election_id])
     @race = Race.find(params[:id])
 
     respond_to do |format|
       if @race.update_attributes(params[:race])
-        format.html { redirect_to @race, notice: 'Race was successfully updated.' }
+        format.html { redirect_to [@election, @race], notice: 'Race was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -69,14 +75,15 @@ class RacesController < ApplicationController
     end
   end
 
-  # DELETE /races/1
-  # DELETE /races/1.json
+  # DELETE /elections/:election_id/races/1
+  # DELETE /elections/:election_id/races/1.json
   def destroy
-    @race = Race.find(params[:id])
+    @election = Election.find(params[:election_id])
+    @race = @election.races.find(params[:id])
     @race.destroy
 
     respond_to do |format|
-      format.html { redirect_to races_url }
+      format.html { redirect_to election_races_url(@election) }
       format.json { head :no_content }
     end
   end

@@ -3,4 +3,6 @@ class Election < ActiveRecord::Base
 
   has_many :ballots
   has_many :races
+  
+  validates_presence_of :name
 end
