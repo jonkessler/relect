@@ -1,0 +1,22 @@
+<h1>Results</h1>
+<% @results.to_a.sort_by { |result| result[0] }.each do |race, results| %>
+  <h2><%= race %></h2>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Candidate</th>
+        <th>Vote Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% results[:results].each_with_index do |row, index| %>
+        <tr class="<%= 'success' if index == 0 %>">
+          <td><%= index + 1 %></td>
+          <td><%= row[0] %></td>
+          <td><%= row[1] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

@@ -10,4 +10,11 @@ class Race < ActiveRecord::Base
   accepts_nested_attributes_for :votes
   
   validates_presence_of :position, :election
+
+  def results
+    ballots = votes.group_by(&:user_id).values.map{|ballot| ballot.sort_by(&:rank).map(&:candidate_id)}
+    InstantRunoffElection.new(ballots).run!.tap do |results|
+      results[:results].map!{|candidate_id, votes| [Candidate.find(candidate_id).name, votes]}
+    end
+  end
 end

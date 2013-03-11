@@ -8,6 +8,10 @@ class Election < ActiveRecord::Base
   validates_presence_of :name
 
   def results
-
+    {}.tap do |results|
+      races.each do |race|
+        results[race.position] = race.results
+      end
+    end
   end
 end

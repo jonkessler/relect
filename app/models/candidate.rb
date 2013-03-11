@@ -4,7 +4,7 @@ class Candidate < ActiveRecord::Base
   has_many :race_candidates
   has_many :races, :through => :race_candidates
   
-  validates_presence_of :name
+  validates :name, :presence => true, :uniqueness => true
 
   accepts_nested_attributes_for :race_candidates
   accepts_nested_attributes_for :races
