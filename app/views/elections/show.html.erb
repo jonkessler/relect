@@ -8,6 +8,8 @@
     <dt><strong>Race:</strong></dt>
     <dd><%= link_to race.position, election_race_path(@election, race) %></dd>
   <% end -%>
+  
+  <dt/><dd><%= link_to 'Add Race', new_election_race_path(@election) %></dd>
 </dl>
 
 <div class="form-actions">
