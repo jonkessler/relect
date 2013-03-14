@@ -13,7 +13,7 @@ class Race < ActiveRecord::Base
 
   def results
     ballots = votes.group_by(&:user_id).values.map{|ballot| ballot.sort_by(&:rank).map(&:candidate_id)}
-    InstantRunoffElection.new(ballots, race.candidates.map(&:id)).run!.tap do |results|
+    InstantRunoffElection.new(ballots, candidates.map(&:id)).run!.tap do |results|
       results[:results].map!{|candidate_id, votes| [Candidate.find(candidate_id).name, votes]}
     end
   end
