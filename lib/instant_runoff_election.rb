@@ -5,7 +5,7 @@ class InstantRunoffElection
   end
 
   def run!
-    results = nil
+    results = []
     rounds = []
     (@candidates.size - 1).times do
       # remove empty ballots
