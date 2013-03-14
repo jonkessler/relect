@@ -1,5 +1,7 @@
 Relect::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :confirmations => 'users/confirmations', :passwords => 'users/passwords',
+                                       :registrations => 'users/registrations', :sessions => 'users/sessions'
+                                     }
 
   resources :elections do
     resources :races
@@ -14,6 +16,6 @@ Relect::Application.routes.draw do
   resources :candidates
   resources :users
   devise_scope :user do
-    root :to => 'devise/sessions#new'
+    root :to => 'users/sessions#new'
   end
 end

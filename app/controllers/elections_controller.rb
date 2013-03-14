@@ -1,4 +1,6 @@
 class ElectionsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /elections
   # GET /elections.json
   def index

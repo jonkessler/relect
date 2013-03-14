@@ -1,4 +1,6 @@
 class RacesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /elections/:election_id/races
   # GET /elections/:election_id/races.json
   def index

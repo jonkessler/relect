@@ -4,6 +4,8 @@ class InstantRunoffElection
   end
 
   def run!
+    #TODO: eliminate candidates with no votes in any particular round
+    
     results = nil
     rounds = []
     loop do
