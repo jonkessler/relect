@@ -13,7 +13,7 @@ class InstantRunoffElection
 
       results = @candidates.map{|c| [c, @ballots.map(&:first).select{|pref| c == pref}.size]}.sort{|a, b| b[1] <=> a[1]}
       rounds << results.dup
-      break if results.size <= 2 || results.first[1] >= (@ballots.size / 2.0).ceil
+      break if results.size <= 2 || results.first[1] >= ((@ballots.size / 2) + 1)
 
       eliminated_candidate = results.last[0]
       @candidates -= [eliminated_candidate]
