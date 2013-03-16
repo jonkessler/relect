@@ -12,9 +12,7 @@ class Race < ActiveRecord::Base
   validates_presence_of :position, :election
 
   def results
-    ballots = votes.group_by(&:user_id).values.map{|ballot| ballot.sort_by(&:rank).map(&:candidate_id)}
-    InstantRunoffElection.new(ballots, candidates.map(&:id)).run!.tap do |results|
-      results[:results].map!{|candidate_id, votes| [Candidate.find(candidate_id).name, votes]}
-    end
+    ballots = votes.group_by(&:user_id).values.map{|ballot| ballot.sort_by(&:rank).map{|vote| vote.candidate.name}}
+    InstantRunoffElection.new(ballots, candidates.map(&:name)).run!
   end
 end
