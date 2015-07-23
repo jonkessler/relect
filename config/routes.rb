@@ -15,7 +15,6 @@ Relect::Application.routes.draw do
   
   resources :candidates
   resources :users
-  devise_scope :user do
-    root :to => 'users/sessions#new'
-  end
+
+  root to: 'elections#index'
 end

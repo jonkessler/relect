@@ -1,6 +1,9 @@
 class ElectionsController < ApplicationController
   load_and_authorize_resource
 
+  before_filter :find_election, except: [:index, :new, :create]
+  before_filter :check_locked, only: [:vote, :cast_votes]
+
   # GET /elections
   # GET /elections.json
   def index
@@ -15,8 +18,6 @@ class ElectionsController < ApplicationController
   # GET /elections/1
   # GET /elections/1.json
   def show
-    @election = Election.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @election }
@@ -36,7 +37,6 @@ class ElectionsController < ApplicationController
 
   # GET /elections/1/edit
   def edit
-    @election = Election.find(params[:id])
   end
 
   # POST /elections
@@ -58,8 +58,6 @@ class ElectionsController < ApplicationController
   # PUT /elections/1
   # PUT /elections/1.json
   def update
-    @election = Election.find(params[:id])
-
     respond_to do |format|
       if @election.update_attributes(params[:election])
         format.html { redirect_to @election, notice: 'Election was successfully updated.' }
@@ -74,7 +72,6 @@ class ElectionsController < ApplicationController
   # DELETE /elections/1
   # DELETE /elections/1.json
   def destroy
-    @election = Election.find(params[:id])
     @election.destroy
 
     respond_to do |format|
@@ -84,7 +81,6 @@ class ElectionsController < ApplicationController
   end
 
   def vote
-    @election = Election.find(params[:id])
     if current_user.has_voted_in_election?(@election)
       flash[:error] = "Sorry, you have already voted in this election"
       redirect_to root_path
@@ -92,11 +88,9 @@ class ElectionsController < ApplicationController
   end
 
   def cast_votes
-    @election = Election.find(params[:id])
-
     if current_user.has_voted_in_election?(@election)
       flash[:error] = "Sorry, you have already voted in this election"
-      redirect_to root_path
+      redirect_to root_path and return
     end
 
     respond_to do |format|
@@ -113,5 +107,19 @@ class ElectionsController < ApplicationController
   def results
     @election = Election.find(params[:id])
     @results = @election.results
+  end
+
+  private
+
+  def find_election
+    @election = Election.find(params[:id])
+  end
+
+  def check_locked
+    if @election.locked?
+      flash[:error] = 'Sorry, voting is closed for this election.'
+      redirect_to root_path
+      false
+    end
   end
 end
