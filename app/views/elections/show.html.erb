@@ -1,6 +1,6 @@
 <%- model_class = Election -%>
 <div class="page-header">
-  <h1><%= @election.name %></h1>
+  <h1><%= @election.name %> <%= '(Locked)' if @election.locked? %></h1>
 </div>
 
 <dl class="dl-horizontal">

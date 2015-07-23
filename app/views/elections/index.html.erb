@@ -16,8 +16,10 @@
           <%= link_to 'Add Race', new_election_race_path(election) if can?(:edit, election) %>
         </td>
         <td>
-          <%= link_to 'VOTE',
-                      vote_election_path(election), :class => 'btn btn-primary' %>
+          <% unless election.locked? %>
+            <%= link_to 'VOTE',
+                        vote_election_path(election), :class => 'btn btn-primary' %>
+          <% end %>
           <%= link_to 'Results',
                       results_election_path(election), :class => 'btn btn-success' %>
           <% if can? :edit, Election %>

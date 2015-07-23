@@ -1,5 +1,5 @@
 class Election < ActiveRecord::Base
-  attr_accessible :name, :races_attributes
+  attr_accessible :name, :races_attributes, :locked
 
   has_many :races
 
