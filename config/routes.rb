@@ -9,6 +9,7 @@ Relect::Application.routes.draw do
     member do
       get :vote
       put :cast_votes
+      patch :cast_votes
       get :results
     end
   end
