@@ -7,7 +7,7 @@ gem 'protected_attributes', '~> 1.1'
 gem 'mysql2', '~> 0.3.11'
 gem 'thin', '~> 1.5.0'
 
-gem 'devise', '~> 3.5'
+gem 'devise', '~> 4.7'
 gem 'nested_form', '~> 0.3.1'
 gem 'cancan', '~> 1.6.9'
 
